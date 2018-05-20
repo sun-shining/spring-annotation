@@ -1,12 +1,12 @@
 package com.juddar.config;
 
 import com.juddar.bean.Person;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
+import com.juddar.condition.LinuxCondition;
+import com.juddar.condition.MacCondition;
+import org.springframework.context.annotation.*;
 
 @Configuration
+//@Conditional(value = {LinuxCondition.class})  该注解也可以仍在类上，对整个类进行条件加载
 public class MainConfig2 {
 
     /**
@@ -26,5 +26,21 @@ public class MainConfig2 {
     public Person person1(){
         System.err.println(".sdf...");
         return new Person("zhaosi",28);
+    }
+
+    /**
+     *  @Conditional: 按照一定的条件进行判断 满足条件给容器中注册bean
+     *  如果系统是Windows注册bill，如果是linux则注册linux
+     */
+    @Conditional(value = {MacCondition.class})
+    @Bean("qiaobs")
+    public Person person01(){
+        return new Person("qiaobs", 62);
+    }
+
+    @Conditional(value = {LinuxCondition.class})
+    @Bean("linus")
+    public Person person02(){
+        return new Person("linux", 45);
     }
 }

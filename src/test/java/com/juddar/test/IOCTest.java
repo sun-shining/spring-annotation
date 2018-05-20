@@ -1,9 +1,14 @@
 package com.juddar.test;
 
+import com.juddar.bean.Person;
 import com.juddar.config.MainConfig;
 import com.juddar.config.MainConfig2;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.Environment;
+
+import java.util.Map;
 
 public class IOCTest {
 
@@ -21,10 +26,26 @@ public class IOCTest {
 
     @Test
     public void test02() {
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(MainConfig2.class);
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(MainConfig2.class);
         //@Scope("prototype") 时，下方两个值不相当
         Object person = ctx.getBean("person");
 //        Object person2 = ctx.getBean("person");
 //        System.err.println(person == person2);
+    }
+
+    ApplicationContext ctx = new AnnotationConfigApplicationContext(MainConfig2.class);
+
+    @Test
+    public void test03(){
+        String[] forType = ctx.getBeanNamesForType(Person.class);
+        for (String str : forType){
+            System.err.println(str);
+        }
+
+        Map<String, Person> beansOfType = ctx.getBeansOfType(Person.class);
+        System.err.println(beansOfType);
+//        Environment environment = ctx.getEnvironment();
+//        String property = environment.getProperty("os.name");
+//        System.err.println(property);
     }
 }
