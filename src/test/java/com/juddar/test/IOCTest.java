@@ -41,11 +41,23 @@ public class IOCTest {
         for (String str : forType){
             System.err.println(str);
         }
-
+        String[] beanDefinitionNames = ctx.getBeanDefinitionNames();
         Map<String, Person> beansOfType = ctx.getBeansOfType(Person.class);
         System.err.println(beansOfType);
 //        Environment environment = ctx.getEnvironment();
 //        String property = environment.getProperty("os.name");
 //        System.err.println(property);
+    }
+
+    @Test
+    public void test04(){
+        printBeans(ctx);
+    }
+
+    public void printBeans(ApplicationContext ctx) {
+        String[] names = ctx.getBeanDefinitionNames();
+        for (String name : names){
+            System.err.println(name);
+        }
     }
 }

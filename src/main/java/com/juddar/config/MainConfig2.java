@@ -1,11 +1,15 @@
 package com.juddar.config;
 
+import com.juddar.bean.Blue;
 import com.juddar.bean.Person;
 import com.juddar.condition.LinuxCondition;
 import com.juddar.condition.MacCondition;
+import com.juddar.condition.MySelector;
+import com.juddar.condition.MySelector2;
 import org.springframework.context.annotation.*;
 
 @Configuration
+@Import({Blue.class, MySelector.class, MySelector2.class})
 //@Conditional(value = {LinuxCondition.class})  该注解也可以仍在类上，对整个类进行条件加载
 public class MainConfig2 {
 
@@ -43,4 +47,14 @@ public class MainConfig2 {
     public Person person02(){
         return new Person("linux", 45);
     }
+
+    /**
+     * 给容器中注册组件的方式：
+     * 1.包扫描+组件标注注解{包扫描/@Service/@Controller/@Repository/@Component}--自己写的类的时候用
+     * 2.@Bean ---导入第三方包里的组件
+     * 3.@Import--- 快速给容器导入一个组件，
+     *      1.id默认是组件的全类名，可以加在类上。
+     *      2.ImportSelector ：返回导入组件的全类名 继承该接口，将需要注入的bean的全类名返回即可
+     *      3.ImportBeanDefinitionRegistrar : 实现该接口，手动注册bean到容器中
+     */
 }

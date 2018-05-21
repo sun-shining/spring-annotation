@@ -25,5 +25,6 @@ public class App
         for (String str : beanNamesForType){
             System.err.println(str);
         }
+
     }
 }
