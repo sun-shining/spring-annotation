@@ -52,6 +52,12 @@ public class IOCTest {
     @Test
     public void test04(){
         printBeans(ctx);
+
+        //工厂bean获取的是getObject方法创建的对象
+        Object object = ctx.getBean("colorFactoryBean");
+        //想要获取工厂对象本身，可以加个 & 前缀
+        Object colorFactoryBean = ctx.getBean("&colorFactoryBean");
+        System.err.println(colorFactoryBean.getClass());
     }
 
     public void printBeans(ApplicationContext ctx) {

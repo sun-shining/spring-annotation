@@ -1,6 +1,7 @@
 package com.juddar.config;
 
 import com.juddar.bean.Blue;
+import com.juddar.bean.ColorFactoryBean;
 import com.juddar.bean.Person;
 import com.juddar.condition.LinuxCondition;
 import com.juddar.condition.MacCondition;
@@ -56,5 +57,11 @@ public class MainConfig2 {
      *      1.id默认是组件的全类名，可以加在类上。
      *      2.ImportSelector ：返回导入组件的全类名 继承该接口，将需要注入的bean的全类名返回即可
      *      3.ImportBeanDefinitionRegistrar : 实现该接口，手动注册bean到容器中
+     * 4.使用SPring提供的FactoryBean（工厂bean）：看起来注入的是ColorFactoryBean，其实获取的是FactoryBean的getObject方法返回的对象
+     *   也可以加一个 & 前缀，来获取工厂bean本身
      */
+    @Bean
+    public ColorFactoryBean colorFactoryBean(){
+        return new ColorFactoryBean();
+    }
 }
